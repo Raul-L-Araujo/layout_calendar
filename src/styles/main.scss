@@ -1,10 +1,10 @@
 $max-days: 31;
 $calendar-day-width: 100px;
 $calendar-day-height: 100px;
-$calendar-total-width: calc(7 * $calendar-day-width + 7px);
+$calendar-total-width: calc(7 * $calendar-day-width + 6px + 20px);
 $calendar-total-height: 100vh;
 $hovered-cell-color: #ffbfcb;
-$days: (
+$start-days: (
   mon: 0,
   tue: 1,
   wed: 2,
@@ -25,32 +25,32 @@ $days: (
   align-items: center;
   flex-direction: column;
 
-  & .calendar {
-    display: flex;
-    flex-wrap: wrap;
-    width: $calendar-total-width;
-    gap: 1px;
+    & .calendar {
+      display: flex;
+      flex-wrap: wrap;
+      width: $calendar-total-width;
+      gap: 1px;
 
-    &__day {
-      box-sizing: border-box;
-      background-color: #eee;
-      height: $calendar-day-height;
-      width: $calendar-day-width;
-      border: 1px black solid;
-    }
+        &__day {
+          box-sizing: border-box;
+          background-color: #eee;
+          height: $calendar-day-height;
+          width: $calendar-day-width;
+          border: 1px black solid;
+          transition: 0.5s;
+        }
 
-    &__day:hover {
-      cursor: pointer;
-      background-color: $hovered-cell-color;
-      transform: translateY(-20px);
-      transition: 0.5s;
+        &__day:hover {
+          cursor: pointer;
+          background-color: $hovered-cell-color;
+          transform: translateY(-20px);
+        }
     }
-  }
 }
 
-@each $day, $position in $days {
+@each $day, $reference in $start-days {
   .calendar--start-day-#{$day} .calendar__day:first-child {
-    margin-left: calc($calendar-total-width / 7 * #{$position});
+    margin-left: calc($reference * ($calendar-day-width + 1px));
   }
 }
 
